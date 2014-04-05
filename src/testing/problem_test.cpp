@@ -1,6 +1,6 @@
 
-#include "main.h"
-#include "nurikabe.h"
+#include "../main.h"
+#include "../core/nurikabe.h"
 
 #include <ctime>
 

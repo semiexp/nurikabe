@@ -2,7 +2,7 @@
 //
 
 #include "main.h"
-#include "nurikabe.h"
+#include "core/nurikabe.h"
 
 int problem[7][7] = {
 	{-1,  3, -1, -1, -1,  1, -1},
