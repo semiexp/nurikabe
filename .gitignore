@@ -1,0 +1,15 @@
+backup_20140402/
+backup140405/
+Debug/
+ipch/
+perf_report/
+x64/
+Release/
+TestResults/
+x64/
+nurikabe/
+nurikabe.psess
+nurikabe.sdf
+nurikabe.sln
+nurikabe.opensdf
+nurikabe.v11.suo
