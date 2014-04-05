@@ -5,7 +5,7 @@
 #include <queue>
 #include <algorithm>
 
-nk_solver::vector3 nk_solver::expand_white2_dfs(int y, int x, int H, int W, bool* visited, nk_field &field)
+nk_solver::vector3 nk_solver::expand_white_dfs(int y, int x, int H, int W, bool* visited, nk_field &field)
 {
 	if(y < 0 || y >= H || x < 0 || x >= W || visited[field.id(y, x)] || field.at(y, x).value == nk_field::BLACK)
 		return vector3(0, 0, 0);
@@ -14,15 +14,15 @@ nk_solver::vector3 nk_solver::expand_white2_dfs(int y, int x, int H, int W, bool
 
 	vector3 ret(1, field.at(y, x).value == nk_field::WHITE ? 1 : 0, field.at(y, x).hint > 0 ? field.at(y, x).hint : 0);
 
-	ret += expand_white2_dfs(y-1, x, H, W, visited, field);
-	ret += expand_white2_dfs(y+1, x, H, W, visited, field);
-	ret += expand_white2_dfs(y, x-1, H, W, visited, field);
-	ret += expand_white2_dfs(y, x+1, H, W, visited, field);
+	ret += expand_white_dfs(y-1, x, H, W, visited, field);
+	ret += expand_white_dfs(y+1, x, H, W, visited, field);
+	ret += expand_white_dfs(y, x-1, H, W, visited, field);
+	ret += expand_white_dfs(y, x+1, H, W, visited, field);
 
 	return ret;
 }
 
-int nk_solver::expand_white2(nk_field &field)
+int nk_solver::expand_white(nk_field &field)
 {
 	int H = field.H, W = field.W;
 	naive_allocator al;
@@ -35,7 +35,7 @@ int nk_solver::expand_white2(nk_field &field)
 	for(int i = 0; i < H; i++)
 		for(int j = 0; j < W; j++){
 			if(!visited[field.id(i, j)] && field.at(i, j).value != nk_field::BLACK){
-				vector3 unit = expand_white2_dfs(i, j, H, W, visited, field);
+				vector3 unit = expand_white_dfs(i, j, H, W, visited, field);
 
 				//printf("%d %d: %d %d %d\n", i, j, unit.x, unit.y, unit.z);
 

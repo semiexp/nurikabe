@@ -261,7 +261,7 @@ void expand_white_test()
 	f.set_hint(0, 0, 10);
 	f.set_hint(2, 1, 5);
 
-	nk_solver::expand_white2(f);
+	nk_solver::expand_white(f);
 	f.debug(stdout);
 
 }

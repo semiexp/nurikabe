@@ -104,13 +104,7 @@ class nk_solver
 		inline vector3 operator-(){ return vector3(-x, -y, -z, -w); }
 	};
 
-	static std::pair<int, int> expand_black_naive_sub(int y, int x, int H, int W, int* cells, bool* visited);
-	static bool expand_black_naive_test(nk_field &field, int y, int x);
-
-	static std::pair<int, int> expand_white_naive_sub(int y, int x, int H, int W, int* cells, bool* visited);
-	static bool expand_white_naive_test(nk_field &field, int y, int x);
-
-	static vector3 expand_white2_dfs(int y, int x, int H, int W, bool* visited, nk_field &field);
+	static vector3 expand_white_dfs(int y, int x, int H, int W, bool* visited, nk_field &field);
 
 	static const int IMPL_BLACK = 1 << 28;
 	static const int IMPL_WHITE = 1 << 29;
@@ -121,13 +115,9 @@ class nk_solver
 public:
 	static int solve(nk_field &field);
 
-	static int expand_black_naive(nk_field &field);
 	static int expand_black(nk_field &field);
 
-	static int expand_white_naive(nk_field &field);
 	static int expand_white(nk_field &field);
-
-	static int expand_white2(nk_field &field);
 
 	static int check_reachability(nk_field &field);
 
