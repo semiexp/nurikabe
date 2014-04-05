@@ -12,7 +12,7 @@ int nk_solver::solve(nk_field &field)
 		progress_last = field.progress();
 
 		ret |= expand_black(field);
-		ret |= expand_white2(field);
+		ret |= expand_white(field);
 		ret |= check_reachability(field);
 
 	}while(progress_last != field.progress() && ret == nk_field::NORMAL);
