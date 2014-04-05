@@ -1,6 +1,6 @@
 
-#include "main.h"
-#include "graph.h"
+#include "../main.h"
+#include "../core/graph.h"
 
 void graph_test()
 {

@@ -1,7 +1,7 @@
 
-#include "main.h"
-#include "nurikabe.h"
-#include "util.h"
+#include "../main.h"
+#include "../core/nurikabe.h"
+#include "../util/util.h"
 
 #include <string>
 #include <iostream>
