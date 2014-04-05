@@ -7,3 +7,5 @@ void problem_test();
 void expand_white_test();
 
 void solver_frontend();
+
+void pencilbox_frontend();
