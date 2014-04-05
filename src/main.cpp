@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
 	//graph_test();
 	//expand_white_test();
 	//solver_frontend();
-	pencilbox_frontend();
+	pencilbox_frontend(argc, argv);
 
 	return 0;
 }

@@ -1,5 +1,8 @@
 
+#include "util.h"
+
 #include <string>
+#include <conio.h>
 
 int parse_int(std::string s)
 {
@@ -13,4 +16,9 @@ int parse_int(std::string s)
 	}
 
 	return ret;
+}
+
+int get_onekey()
+{
+	return _getch();
 }
