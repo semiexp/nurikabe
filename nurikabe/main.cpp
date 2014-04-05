@@ -14,7 +14,7 @@ int problem[7][7] = {
 	{ 1, -1, -1, -1,  1, -1,  6},
 };
 
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char* argv[])
 {
 	problem_test();
 	//graph_test();
