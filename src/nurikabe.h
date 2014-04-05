@@ -8,9 +8,6 @@ class nk_field
 {
 	friend class nk_solver;
 
-	static const int UNDECIDED = 0;
-	static const int WHITE = 1;
-	static const int BLACK = 2;
 	static const int ax[4], ay[4];
 
 	struct cell
@@ -49,6 +46,10 @@ class nk_field
 	bool check_complete();
 
 public:
+	static const int UNDECIDED = 0;
+	static const int WHITE = 1;
+	static const int BLACK = 2;
+
 	static const int NORMAL = 0;
 	static const int SOLVED = 1;
 	static const int INCONSISTENT = 2;
@@ -61,6 +62,11 @@ public:
 
 	int set_hint(int y, int x, int hint, bool update=true);
 
+	int board_height() { return H; }
+	int board_width() { return W; }
+
+	int cell_hint(int y, int x) { return at(y, x).hint; }
+	int cell_value(int y, int x) { return at(y, x).value; }
 	int status(){ return t_status; }
 	int progress(){ return t_progress; }
 

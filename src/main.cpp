@@ -16,10 +16,11 @@ int problem[7][7] = {
 
 int main(int argc, char* argv[])
 {
-	problem_test();
+	//problem_test();
 	//graph_test();
 	//expand_white_test();
 	//solver_frontend();
+	pencilbox_frontend();
 
 	return 0;
 }
