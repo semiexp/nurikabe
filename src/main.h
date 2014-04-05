@@ -8,4 +8,4 @@ void expand_white_test();
 
 void solver_frontend();
 
-void pencilbox_frontend();
+void pencilbox_frontend(int argc, char** argv);
