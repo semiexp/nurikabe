@@ -117,6 +117,7 @@ class nk_solver
 	static const int IMPL_MASK = (1 << 27) - 1;
 
 	static int apply_implication_graph(nk_field &field, std::vector<std::pair<int, int> > &graph);
+	static std::vector<std::pair<int, int> > assumption_order(nk_field &field);
 
 public:
 	static int solve(nk_field &field);

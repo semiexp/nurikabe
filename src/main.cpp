@@ -6,11 +6,11 @@
 
 int main(int argc, char* argv[])
 {
-	//problem_test();
+	problem_test();
 	//graph_test();
 	//expand_white_test();
 	//solver_frontend();
-	pencilbox_frontend(argc, argv);
+	//pencilbox_frontend(argc, argv);
 
 	return 0;
 }
