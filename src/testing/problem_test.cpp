@@ -211,9 +211,9 @@ char problem_16[][10] = {
 	".....2..1",
 };
 
-#define problem problem_nikoli7
-#define problem_H 14
-#define problem_W 24
+#define problem problem_nikoli10
+#define problem_H 20
+#define problem_W 36
 
 void problem_test__()
 {
