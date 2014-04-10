@@ -4,10 +4,12 @@ ipch/
 perf_report/
 x64/
 Release/
+ToOther/
 TestResults/
 x64/
 nurikabe/Debug
 nurikabe/Release
+nurikabe/ToOther
 nurikabe/x64
 nurikabe/ReadMe.txt
 nurikabe.psess
