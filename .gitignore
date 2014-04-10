@@ -6,7 +6,10 @@ x64/
 Release/
 TestResults/
 x64/
-nurikabe/
+nurikabe/Debug
+nurikabe/Release
+nurikabe/x64
+nurikabe/ReadMe.txt
 nurikabe.psess
 nurikabe.sdf
 nurikabe.sln
