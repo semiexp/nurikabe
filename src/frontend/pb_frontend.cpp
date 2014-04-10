@@ -171,6 +171,52 @@ void pencilbox_frontend(int argc, char** argv)
 		goto wait_key_for_exit;
 	}
 
+	std::cout << "This problem couldn't be solved with 1-step trial-and-error techniques." << std::endl;
+
+	char ct;
+	do{
+		std::cout << "Proceed with 2-steps trial-and-error? [y/n]";
+		ct = get_onekey();
+		std::cout << ct << std::endl;
+	}while(ct != 'y' && ct != 'n');
+
+	if(ct == 'n') goto giveup;
+
+	t1 = clock();
+
+	nk_solver::assumption(field, 2);
+
+	t2 = clock();
+
+	if(field.status() != nk_field::NORMAL){
+		report_field(field, 2, (double)(t2 - t1) / CLOCKS_PER_SEC, in_name);
+
+		goto wait_key_for_exit;
+	}
+
+	std::cout << "This problem couldn't be solved with 2-step trial-and-error techniques." << std::endl;
+
+	do{
+		std::cout << "Proceed with 3-steps trial-and-error? [y/n]";
+		ct = get_onekey();
+		std::cout << ct << std::endl;
+	}while(ct != 'y' && ct != 'n');
+
+	if(ct == 'n') goto giveup;
+
+	t1 = clock();
+
+	nk_solver::assumption(field, 3);
+
+	t2 = clock();
+
+	if(field.status() != nk_field::NORMAL){
+		report_field(field, 3, (double)(t2 - t1) / CLOCKS_PER_SEC, in_name);
+
+		goto wait_key_for_exit;
+	}
+
+giveup:
 	std::cout << "This problem is too difficult for this solver." << std::endl;
 
 wait_key_for_exit:

@@ -63,6 +63,7 @@ std::vector<std::pair<int, int> > nk_solver::assumption_order(nk_field &field)
 		for(int j = 0; j < W; j++) {
 			if(field.at(i, j).value == nk_field::UNDECIDED) {
 				int p = field.id(i, j);
+
 				tmp.push_back(std::make_pair(adj_count[p] == 0 ? 0x7fffffff : adj_count[p], p));
 			}
 		}
