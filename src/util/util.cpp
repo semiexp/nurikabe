@@ -2,7 +2,7 @@
 #include "util.h"
 
 #include <string>
-#include <conio.h>
+#include <iostream>
 
 int parse_int(std::string s)
 {
@@ -20,5 +20,7 @@ int parse_int(std::string s)
 
 int get_onekey()
 {
-	return _getch();
+	char c;
+	std::cin >> c;
+	return c;
 }
