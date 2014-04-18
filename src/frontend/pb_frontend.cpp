@@ -80,7 +80,7 @@ void report_field(nk_field &field, int tq, double cost, std::string infn)
 	std::cout << std::endl;
 
 	std::string outfn = infn + std::string(".report.txt");
-	std::ofstream ofs(outfn);
+	std::ofstream ofs((char *)outfn.c_str());
 
 	if(!ofs) {
 		std::cout << "Error: Tried to write the solution to " << outfn << " but couldn't open the file." << std::endl;
@@ -108,11 +108,11 @@ void pencilbox_frontend(int argc, char** argv)
 
 		//chop '\r', '\n'
 		while(in_name.size() > 0 && (in_name[in_name.size() - 1] == '\r' || in_name[in_name.size() - 1] == '\n')) {
-			in_name.pop_back();
+			in_name.erase(in_name.size()-1);
 		}
 	}
 
-	std::ifstream ifs(in_name);
+	std::ifstream ifs((char *)in_name.c_str());
 
 	if(!ifs) {
 		std::cout << "Error: Couldn't open file \"" << in_name << "\"" << std::endl;
@@ -220,7 +220,8 @@ giveup:
 	std::cout << "This problem is too difficult for this solver." << std::endl;
 
 wait_key_for_exit:
-	std::cout << "Press any key to continue...";
-	fflush(stdout);
-	get_onekey();
+	//std::cout << "Press any key to continue...";
+	//fflush(stdout);
+	//get_onekey();
+	return;
 }
