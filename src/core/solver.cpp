@@ -81,8 +81,6 @@ std::vector<std::pair<int, int> > nk_solver::assumption_order(nk_field &field)
 
 int nk_solver::apply_implication_graph(nk_field &field, std::vector<std::pair<int, int> > &graph)
 {
-	int H = field.H;
-	int W = field.W;
 	int ret = nk_field::NORMAL;
 
 	int progress_last;
