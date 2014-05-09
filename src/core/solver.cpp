@@ -76,6 +76,8 @@ std::vector<std::pair<int, int> > nk_solver::assumption_order(nk_field &field)
 		ret.push_back(std::make_pair(tmp[i].second / W, tmp[i].second % W));
 	}
 
+	delete [] adj_count;
+
 	return ret;
 }
 

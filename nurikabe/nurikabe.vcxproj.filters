@@ -77,9 +77,6 @@
     <ClCompile Include="..\src\testing\graph_test.cpp">
       <Filter>ソース ファイル\testing</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\testing\problem_test.cpp">
-      <Filter>ソース ファイル\testing</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
