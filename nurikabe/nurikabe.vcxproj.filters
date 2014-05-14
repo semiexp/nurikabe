@@ -173,6 +173,9 @@
     <ClCompile Include="..\src\core\csp_reduction.cpp">
       <Filter>ソース ファイル\core\solver</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\testing\csp_test.cpp">
+      <Filter>ソース ファイル\testing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -265,6 +265,7 @@
     </ClCompile>
     <ClCompile Include="..\src\frontend\pb_frontend.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\testing\csp_test.cpp" />
     <ClCompile Include="..\src\testing\graph_test.cpp" />
     <ClCompile Include="..\src\testing\problem_tester.cpp" />
     <ClCompile Include="..\src\util\util.cpp" />
