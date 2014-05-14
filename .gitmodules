@@ -1,0 +1,3 @@
+[submodule "nanocsp"]
+	path = nanocsp
+	url = https://github.com/semiexp/nanocsp.git
