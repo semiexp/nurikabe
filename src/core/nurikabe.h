@@ -129,4 +129,6 @@ public:
 	static int check_reachability(nk_field &field);
 
 	static int assumption(nk_field &field, int depth = 1);
+
+	static int solve_csp(nk_field &field);
 };
