@@ -254,6 +254,7 @@
     <ClCompile Include="..\nanocsp\src\minisat\minisat_wrap.cpp" />
     <ClCompile Include="..\nanocsp\src\minisat\utils\Options.cc" />
     <ClCompile Include="..\nanocsp\src\minisat\utils\System.cc" />
+    <ClCompile Include="..\src\core\brute_force.cpp" />
     <ClCompile Include="..\src\core\csp_reduction.cpp" />
     <ClCompile Include="..\src\core\ex_black.cpp" />
     <ClCompile Include="..\src\core\ex_white.cpp" />
@@ -265,6 +266,7 @@
     </ClCompile>
     <ClCompile Include="..\src\frontend\pb_frontend.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\testing\brute_test.cpp" />
     <ClCompile Include="..\src\testing\csp_test.cpp" />
     <ClCompile Include="..\src\testing\graph_test.cpp" />
     <ClCompile Include="..\src\testing\problem_tester.cpp" />

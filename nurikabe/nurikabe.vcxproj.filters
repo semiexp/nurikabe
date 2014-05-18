@@ -176,6 +176,12 @@
     <ClCompile Include="..\src\testing\csp_test.cpp">
       <Filter>ソース ファイル\testing</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\core\brute_force.cpp">
+      <Filter>ソース ファイル\core\solver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\testing\brute_test.cpp">
+      <Filter>ソース ファイル\testing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -6,7 +6,8 @@
 
 int main(int argc, char* argv[])
 {
-	csp_test();
+	brute_test();
+	//csp_test();
 	//problem_test();
 	//graph_test();
 	//expand_white_test();

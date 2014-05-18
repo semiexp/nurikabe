@@ -62,6 +62,21 @@ nk_field::nk_field(const nk_field &src)
 	total_wcells = src.total_wcells;
 }
 
+nk_field &nk_field::operator=(const nk_field &src)
+{
+	this->~nk_field();
+
+	H = src.H; W = src.W;
+	field = new cell[H*W];
+	for(int i=0;i<H*W;i++) field[i] = src.field[i];
+	t_status = src.t_status;
+	t_progress = src.t_progress;
+	total_wcells = src.total_wcells;
+	
+	return *this;
+}
+
+
 nk_field::~nk_field()
 {
 	if(field != NULL) delete [] field;

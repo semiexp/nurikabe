@@ -60,6 +60,8 @@ public:
 	nk_field(const nk_field &src);
 	~nk_field();
 
+	nk_field &operator=(const nk_field& src);
+
 	int set_hint(int y, int x, int hint, bool update=true);
 
 	int board_height() { return H; }
@@ -132,4 +134,7 @@ public:
 
 	static int solve_csp_old(nk_field &field);
 	static int solve_csp(nk_field &field);
+
+	static int brute_force(nk_field &field);
+
 };
