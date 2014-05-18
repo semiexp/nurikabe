@@ -6,7 +6,7 @@
 
 using namespace NanoCSP;
 
-int nk_solver::solve_csp(nk_field &field)
+int nk_solver::solve_csp_old(nk_field &field)
 {
 	// (* TODO: write the solver *)
 
@@ -261,8 +261,8 @@ int nk_solver::solve_csp(nk_field &field)
 	if(sol.solve()) {
 		for(int i = 0; i < H; i++) {
 			for(int j = 0; j < W; j++) {
-				if(field.at(i, j).hint > 0) printf("%2d/%2d ", field.at(i, j).hint, sol.GetIntValue(Id[i][j]));
-				else printf("%s/%2d ", (sol.GetBoolValue(B[i][j]) ? "##" : ".."), sol.GetIntValue(Id[i][j]));
+				if(field.at(i, j).hint > 0) printf("%2d ", field.at(i, j).hint);
+				else printf("%s ", (sol.GetBoolValue(B[i][j]) ? "##" : ".."));
 			}
 			puts("");
 		}
@@ -281,6 +281,171 @@ int nk_solver::solve_csp(nk_field &field)
 			printf("\n");
 		}
 		*/
+	}else puts("Couldn't solve the problem");
+
+	return nk_field::NORMAL;
+}
+
+int nk_solver::solve_csp(nk_field &field)
+{
+	int H = field.H, W = field.W;
+	NCSolver sol;
+
+	std::vector<std::vector<NCInt> > S;
+	std::vector<std::vector<NCInt> > Id;
+	// Cell status; B[i][j] = true iff (i, j) is a black cell
+
+	int nHint = 0, hid = 1;
+	std::vector<std::pair<int, int> > hints;
+
+	for(int i = 0; i < H; i++) 
+		for(int j = 0; j < W; j++) if(field.at(i, j).hint > 0) {
+			++nHint;
+			hints.push_back(std::make_pair(i * W + j, field.at(i, j).hint));
+		}
+
+	for(int i = 0; i < H; i++) {
+		std::vector<NCInt> Si;
+		std::vector<NCInt> Idi;
+		for(int j = 0; j < W; j++) {
+			if(field.at(i, j).hint > 0) {
+				Si.push_back(NCInt(sol, hid, hid));
+				++hid;
+			} else Si.push_back(NCInt(sol, 0, nHint));
+			Idi.push_back(NCInt(sol, 0, H * W));
+		}
+
+		S.push_back(Si);
+		Id.push_back(Idi);
+	}
+
+	for(int i = 0; i < H; i++) {
+		for(int j = 0; j < W; j++) {
+			if(i < H-1) {
+				sol.satisfy(S[i][j] == 0 || S[i+1][j] == 0 || S[i][j] == S[i+1][j]);
+			}
+			if(j < W-1) {
+				sol.satisfy(S[i][j] == 0 || S[i][j+1] == 0 || S[i][j] == S[i][j+1]);
+			}
+		}
+	}
+
+	const int ax[4] = {-1, 0, 0, 1};
+	const int ay[4] = {0, -1, 1, 0};
+
+	for(int i = 0; i < H; i++) {
+		for(int j = 0; j < W; j++) {
+			int y = i;
+			int x = j;
+
+			std::vector<NCBool> cand;
+
+			for(int k = 0; k < 4; k++) {
+				int y2 = i + ay[k];
+				int x2 = j + ax[k];
+
+				if(y2 < 0 || x2 < 0 || y2 >= H || x2 >= W) continue;
+
+				NCBool Ei(sol);
+				sol.satisfy(Ei == (S[y][x] == S[y2][x2] && Id[y][x] > Id[y2][x2]));
+
+				cand.push_back(Ei);
+			}
+
+			NCBool is_zero(sol);
+			sol.satisfy(is_zero == (Id[y][x] == 0));
+
+			if(cand.size() == 2) {
+				sol.satisfy(is_zero || cand[0] || cand[1]);
+			}
+			if(cand.size() == 3) {
+				sol.satisfy(is_zero || cand[0] || cand[1] || cand[2]);
+			}
+			if(cand.size() == 4) {
+				sol.satisfy(is_zero || cand[0] || cand[1] || cand[2] || cand[3]);
+			}
+		}
+	}
+
+	for(int i = 0; i < nHint; i++) {
+		int hc = hints[i].second;
+		NCInt prev;
+
+		int cnt = 1;
+		for(int j = 0; j < H; j++) {
+			for(int k = 0; k < W; k++, cnt++) {
+				if(j == 0 && k == 0) {
+					prev = NCInt(sol, 0, cnt);
+
+					sol.satisfy(S[j][k] == (i+1) >>= prev == 1);
+					sol.satisfy(S[j][k] != (i+1) >>= prev == 0);
+				} else {
+					if(cnt > hc) cnt = hc;
+
+					NCInt cur(sol, 0, cnt);
+
+					sol.satisfy(S[j][k] == (i+1) >>= cur == prev + 1);
+					sol.satisfy(S[j][k] != (i+1) >>= cur == prev);
+
+					prev = cur;
+				}
+			}
+		}
+
+		sol.satisfy(prev == hc);
+	}
+
+	for(int i = 0; i < H-1; i++) {
+		for(int j = 0; j < W-1; j++) {
+			sol.satisfy(S[i][j] > 0 || S[i][j+1] > 0 || S[i+1][j] > 0 || S[i+1][j+1] > 0);
+		}
+	}
+
+	{
+		NCInt prev;
+
+		int cnt = 1;
+
+		for(int j = 0; j < H; j++) {
+			for(int k = 0; k < W; k++, cnt++) {
+				if(j == 0 && k == 0) {
+					prev = NCInt(sol, 0, cnt);
+
+					sol.satisfy(Id[j][k] == 0 >>= prev == 1);
+					sol.satisfy(Id[j][k] != 0 >>= prev == 0);
+				} else {
+					if(cnt > nHint + 1) cnt = nHint + 1;
+
+					NCInt cur(sol, 0, cnt);
+
+					sol.satisfy(Id[j][k] == 0 >>= cur == prev + 1);
+					sol.satisfy(Id[j][k] != 0 >>= cur == prev);
+
+					prev = cur;
+				}
+			}
+		}
+
+		sol.satisfy(prev == (nHint + 1));
+	}
+
+	if(sol.solve()) {
+		/*
+		for(int i = 0; i < H; i++) {
+			for(int j = 0; j < W; j++) {
+				if(field.at(i, j).hint > 0) printf("%2d ", field.at(i, j).hint);
+				else printf("%s ", (sol.GetIntValue(S[i][j]) == 0 ? "##" : ".."));
+			}
+			puts("");
+		}
+		*/
+		for(int i = 0; i < H; i++) {
+			for(int j = 0; j < W; j++) {
+				if(field.at(i, j).hint > 0) printf("%2d/%2d ", field.at(i, j).hint, sol.GetIntValue(S[i][j]));
+				else printf("%s/%2d ", (sol.GetIntValue(S[i][j]) == 0 ? "##" : ".."), sol.GetIntValue(S[i][j]));
+			}
+			puts("");
+		}
 	}else puts("Couldn't solve the problem");
 
 	return nk_field::NORMAL;
