@@ -102,7 +102,14 @@ int nk_solver::check_reachability(nk_field &field)
 	for(int i=0;i<H;i++){
 		for(int j=0;j<W;j++){
 			//printf("%3d ", mx_rem[i*W+j]);
-			if(mx_rem[field.id(i, j)] != -1) continue;
+
+			if(mx_rem[field.id(i, j)] != -1) {
+				if(field.at(i, j).value == nk_field::WHITE && field.at(field.root(field.id(i, j))).hint < 0) {
+					int root = field.root(field.id(i, j));
+					mx_rem[root] = std::max(mx_rem[root], mx_rem[field.id(i, j)]);
+				}
+				continue;
+			}
 
 			if(field.at(i, j).value == nk_field::UNDECIDED){
 				ret |= field.determine_black(i, j);
@@ -118,6 +125,20 @@ int nk_solver::check_reachability(nk_field &field)
 		//puts("");
 	}
 	
+	for(int i = 0; i < H; i++) {
+		for(int j = 0; j < W; j++) {
+			int id = field.id(i, j);
+			if(field.at(id).value == nk_field::WHITE && field.at(id).root < 0 && field.at(id).hint < 0) {
+				if(-field.at(id).root > mx_rem[id] + 1) {
+					delete [] mx_rem;
+					delete [] adj;
+
+					return field.t_status |= nk_field::INCONSISTENT;
+				}
+			}
+		}
+	}
+
 	delete [] mx_rem;
 	delete [] adj;
 
