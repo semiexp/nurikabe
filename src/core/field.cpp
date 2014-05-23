@@ -104,23 +104,12 @@ int nk_field::join(int p, int q)
 		p ^= q;
 	}
 
-	std::vector<int> to_avoid_adj;
-	if(field[p].hint > 0 && field[q].hint < 0){
-		int q2 = q;
-		do{
-			to_avoid_adj.push_back(q2);
-			q2 = field[q2].next;
-		}while(q2 != q);
-	}
-
 	field[p].root += field[q].root;
 	field[q].root = p;
 
 	field[p].next ^= field[q].next;
 	field[q].next ^= field[p].next;
 	field[p].next ^= field[q].next;
-
-	for(int i=0;i<to_avoid_adj.size();i++) avoid_adjacent_unions(to_avoid_adj[i] / W, to_avoid_adj[i] % W);
 
 	if(field[p].hint > 0 && field[p].hint < -field[p].root){
 		return t_status |= INCONSISTENT;
@@ -159,19 +148,40 @@ int nk_field::avoid_adjacent_unions(int y, int x)
 	int y2, x2;
 	int ret = NORMAL;
 
-	if(at(root(id(y, x))).hint < 0) return NORMAL;
+	if(at(root(id(y, x))).hint < 0) {
+		if(at(y, x).value != WHITE) return NORMAL;
 
-	for(int i=0;i<4;i++){
-		y2 = y + ay[i]*2; x2 = x + ax[i]*2;
+		int uSize = -at(root(id(y, x))).root;
 
-		if(range(y2, x2) && at(y2, x2).value == WHITE && at(root(id(y2, x2))).hint > 0 && root(id(y, x)) != root(id(y2, x2))){
-			ret |= determine_black(y + ay[i], x + ax[i]);
+		for(int i = 0; i < 4; i++){
+			y2 = y + ay[i]*2; x2 = x + ax[i]*2;
+
+			if(range(y2, x2) && at(y2, x2).value == WHITE && at(root(id(y2, x2))).hint > 0 && at(root(id(y2, x2))).hint < uSize + 1 - at(root(id(y2, x2))).root){
+			//	printf("%d %d %d %d--%d %d\n", y, x, root(id(y, x)), at(root(id(y, x))).hint, y2, x2);
+			//	debug(stdout);
+			//	debug2(stdout);
+				ret |= determine_black(y + ay[i], x + ax[i]);
+			}
+
+			y2 = y + ay[i] + ay[(i+1)%4]; x2 = x + ax[i] + ax[(i+1)%4];
+			if(range(y2, x2) && at(y2, x2).value == WHITE && at(root(id(y2, x2))).hint > 0 && at(root(id(y2, x2))).hint < uSize + 1 - at(root(id(y2, x2))).root){
+				ret |= determine_black(y + ay[i], x + ax[i]);
+				ret |= determine_black(y + ay[(i+1)%4], x + ax[(i+1)%4]);
+			}
 		}
+	} else {
+		for(int i=0;i<4;i++){
+			y2 = y + ay[i]*2; x2 = x + ax[i]*2;
 
-		y2 = y + ay[i] + ay[(i+1)%4]; x2 = x + ax[i] + ax[(i+1)%4];
-		if(range(y2, x2) && at(y2, x2).value == WHITE && at(root(id(y2, x2))).hint > 0 && root(id(y, x)) != root(id(y2, x2))){
-			ret |= determine_black(y + ay[i], x + ax[i]);
-			ret |= determine_black(y + ay[(i+1)%4], x + ax[(i+1)%4]);
+			if(range(y2, x2) && at(y2, x2).value == WHITE && at(root(id(y2, x2))).hint > 0 && root(id(y, x)) != root(id(y2, x2))){
+				ret |= determine_black(y + ay[i], x + ax[i]);
+			}
+
+			y2 = y + ay[i] + ay[(i+1)%4]; x2 = x + ax[i] + ax[(i+1)%4];
+			if(range(y2, x2) && at(y2, x2).value == WHITE && at(root(id(y2, x2))).hint > 0 && root(id(y, x)) != root(id(y2, x2))){
+				ret |= determine_black(y + ay[i], x + ax[i]);
+				ret |= determine_black(y + ay[(i+1)%4], x + ax[(i+1)%4]);
+			}
 		}
 	}
 
@@ -209,6 +219,13 @@ int nk_field::determine_white(int y, int x)
 	}
 
 	ret |= avoid_adjacent_unions(y, x);
+
+	int pBas = id(y, x);
+	int p = pBas;
+	do {
+		avoid_closed_white(p / W, p % W);
+		p = at(p).next;
+	}while(pBas != p);
 
 	if(check_complete()) ret |= SOLVED;
 
