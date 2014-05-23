@@ -129,7 +129,7 @@ int nk_solver::check_reachability(nk_field &field)
 		for(int j = 0; j < W; j++) {
 			int id = field.id(i, j);
 			if(field.at(id).value == nk_field::WHITE && field.at(id).root < 0 && field.at(id).hint < 0) {
-				if(-field.at(id).root > mx_rem[id] + 1) {
+				if(-field.at(id).root > mx_rem[id]) {
 					delete [] mx_rem;
 					delete [] adj;
 
