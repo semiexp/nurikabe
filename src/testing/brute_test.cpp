@@ -76,6 +76,10 @@ void brute_test()
 
 	time_t start = clock();
 
+	puts("Solve:");
+	field.debug(stdout);
+	fflush(stdout);
+
 	printf("%d\n", nk_solver::brute_force(field));
 	field.debug(stdout);
 

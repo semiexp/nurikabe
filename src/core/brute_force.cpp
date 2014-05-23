@@ -64,6 +64,14 @@ int nk_solver::brute_force(nk_field &field)
 
 	if((bk & nk_field::INCONSISTENT) && (wt & nk_field::INCONSISTENT)) return nk_field::INCONSISTENT;
 
+	if((bk & nk_field::MULTIPLE_ANSWER) || (wt & nk_field::MULTIPLE_ANSWER)) {
+		return nk_field::MULTIPLE_ANSWER;
+	}
+
+	if(bk == nk_field::SOLVED && wt == nk_field::SOLVED) {
+		return nk_field::MULTIPLE_ANSWER;
+	}
+
 	if(bk == nk_field::SOLVED) {
 		field = asm_black;
 		return nk_field::SOLVED;

@@ -53,6 +53,7 @@ public:
 	static const int NORMAL = 0;
 	static const int SOLVED = 1;
 	static const int INCONSISTENT = 2;
+	static const int MULTIPLE_ANSWER = 4;
 
 	nk_field();
 	nk_field(int Ht, int Wt);
