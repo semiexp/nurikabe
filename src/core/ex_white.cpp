@@ -221,6 +221,11 @@ int nk_solver::expand_white(nk_field &field)
 
 		//printf("%d is based on %d, %d\n", idl + eid, iter->first.second, iter->first.first);
 		vals[idl + eid] = adj_total[iter->first.second] + -(vector3(1 << 16, 1 << 16, 1 << 16) + uvalue[iter->first.first]);
+
+		if(cstate[iter->first.first] != -1 && vals[idl + eid].x >= (1 << 16)) {
+			vals[idl + eid] = vector3(uvalue[iter->first.second].x, 1 << 16, 1 << 16);
+		}
+
 		for(; iter != iter2; ++iter){
 			G.add_edge(cid[iter->second], idl + eid);
 		}
@@ -247,7 +252,8 @@ int nk_solver::expand_white(nk_field &field)
 					ret |= nk_field::INCONSISTENT;
 
 					goto release;
-				}else if(uval.x < (1 << 16) && uval.z < (1 << 16) && uval.z > uval.x){
+				//}else if(uval.x < (1 << 16) && uval.z < (1 << 16) && uval.z > uval.x){
+				}else if(uval.x < (1 << 16) && (uval.z & 0xffff) > uval.x) {
 					field.t_status |= nk_field::INCONSISTENT;
 					ret |= nk_field::INCONSISTENT;
 
@@ -265,7 +271,8 @@ int nk_solver::expand_white(nk_field &field)
 				vector3 tmp = sto[k];
 				if(tmp.y < (1 << 16) && tmp.z < (1 << 16) && tmp.y > tmp.z){
 					ret |= field.determine_white(i, j);
-				}else if(tmp.x < (1 << 16) && tmp.z < (1 << 16) && tmp.z > tmp.x){
+				//}else if(tmp.x < (1 << 16) && tmp.z < (1 << 16) && tmp.z > tmp.x){
+				}else if(tmp.x < (1 << 16) && (tmp.z & 0xffff) > tmp.x){
 					ret |= field.determine_white(i, j);
 				}else if(tmp.z == 0 && (tmp.x & 0xffff) >= 2){
 					ret |= field.determine_white(i, j);
