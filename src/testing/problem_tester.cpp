@@ -49,8 +49,11 @@ void run_all_problem_test()
 
 		//printf("%d\n", fl.status());
 		//fl.debug(stdout);
-		if(fl.status() != nk_field::SOLVED) break;
 		assert(fl.status() == nk_field::SOLVED);
+		if(fl.status() != nk_field::SOLVED) {
+			puts("Something is wrong");
+			break;
+		}
 	}
 }
 
@@ -58,7 +61,7 @@ void problem_test()
 {
 	load_problem_file();
 
-	const int TRIAL_COUNT = 1;
+	const int TRIAL_COUNT = 10;
 
 	time_t start = clock();
 

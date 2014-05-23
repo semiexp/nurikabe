@@ -104,10 +104,6 @@ int nk_solver::check_reachability(nk_field &field)
 			//printf("%3d ", mx_rem[i*W+j]);
 
 			if(mx_rem[field.id(i, j)] != -1) {
-				if(field.at(i, j).value == nk_field::WHITE && field.at(field.root(field.id(i, j))).hint < 0) {
-					int root = field.root(field.id(i, j));
-					mx_rem[root] = std::max(mx_rem[root], mx_rem[field.id(i, j)]);
-				}
 				continue;
 			}
 
@@ -129,7 +125,15 @@ int nk_solver::check_reachability(nk_field &field)
 		for(int j = 0; j < W; j++) {
 			int id = field.id(i, j);
 			if(field.at(id).value == nk_field::WHITE && field.at(id).root < 0 && field.at(id).hint < 0) {
-				if(-field.at(id).root > mx_rem[id]) {
+				int curMaxRem = -1;
+
+				int pos = id;
+				do {
+					curMaxRem = std::max(curMaxRem, mx_rem[pos]);
+					pos = field.at(pos).next;
+				}while(pos != id);
+
+				if(-field.at(id).root > curMaxRem) {
 					delete [] mx_rem;
 					delete [] adj;
 
