@@ -45,7 +45,11 @@ void run_all_problem_test()
 		nk_field fl(Hs[i], Ws[i], problems[i]);
 		
 		nk_solver::assumption(fl, 1);
+		//nk_solver::solve(fl);
 
+		//printf("%d\n", fl.status());
+		//fl.debug(stdout);
+		if(fl.status() != nk_field::SOLVED) break;
 		assert(fl.status() == nk_field::SOLVED);
 	}
 }
@@ -54,7 +58,7 @@ void problem_test()
 {
 	load_problem_file();
 
-	const int TRIAL_COUNT = 50;
+	const int TRIAL_COUNT = 10;
 
 	time_t start = clock();
 

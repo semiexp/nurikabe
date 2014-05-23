@@ -38,6 +38,7 @@ class nk_field
 	int avoid_adjacent_unions(int y, int x);
 	int avoid_closed_white(int y, int x);
 
+public:
 	int determine_white(int y, int x);
 	int determine_white(int p){ return determine_white(p / W, p % W); }
 	int determine_black(int y, int x);
@@ -45,7 +46,6 @@ class nk_field
 
 	bool check_complete();
 
-public:
 	static const int UNDECIDED = 0;
 	static const int WHITE = 1;
 	static const int BLACK = 2;

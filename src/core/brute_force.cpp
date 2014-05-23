@@ -9,8 +9,8 @@ int nk_solver::brute_force(nk_field &field)
 	if(field.status() & nk_field::INCONSISTENT) return nk_field::INCONSISTENT;
 
 	if((++step) % 100 == 0) {
-		field.debug(stdout);
-		puts("");
+		//field.debug(stdout);
+		//puts("");
 	}
 
 	int H = field.H, W = field.W;
