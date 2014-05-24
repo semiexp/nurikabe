@@ -223,7 +223,7 @@ int nk_solver::expand_white(nk_field &field)
 		vals[idl + eid] = adj_total[iter->first.second] + -(vector3(1 << 16, 1 << 16, 1 << 16) + uvalue[iter->first.first]);
 
 		if(cstate[iter->first.first] != -1 && vals[idl + eid].x >= (1 << 16)) {
-			vals[idl + eid] = vector3(uvalue[iter->first.second].x, 1 << 16, 1 << 16);
+			vals[idl + eid] = vector3(uvalue[iter->first.second].x, uvalue[iter->first.second].y + (1 << 16), 1 << 16);
 		}
 
 		for(; iter != iter2; ++iter){
@@ -247,7 +247,8 @@ int nk_solver::expand_white(nk_field &field)
 			if(G.is_root(cid[field.id(i, j)])){
 				vector3 uval = G.get_union_value(cid[field.id(i, j)]);
 
-				if(uval.y < (1 << 16) && uval.z < (1 << 16) && uval.y > uval.z){
+				//if(uval.y < (1 << 16) && uval.z < (1 << 16) && uval.y > uval.z){
+				if(uval.z < (1 << 16) && (uval.y & 0xffff) > uval.z) {
 					field.t_status |= nk_field::INCONSISTENT;
 					ret |= nk_field::INCONSISTENT;
 
@@ -269,7 +270,8 @@ int nk_solver::expand_white(nk_field &field)
 			G.query(cid[field.id(i, j)], sto);
 			for(int k = 0; k < sto.size(); k++){
 				vector3 tmp = sto[k];
-				if(tmp.y < (1 << 16) && tmp.z < (1 << 16) && tmp.y > tmp.z){
+				//if(tmp.y < (1 << 16) && tmp.z < (1 << 16) && tmp.y > tmp.z){
+				if(tmp.z < (1 << 16) && (tmp.y & 0xffff) > tmp.z) {
 					ret |= field.determine_white(i, j);
 				//}else if(tmp.x < (1 << 16) && tmp.z < (1 << 16) && tmp.z > tmp.x){
 				}else if(tmp.x < (1 << 16) && (tmp.z & 0xffff) > tmp.x){
