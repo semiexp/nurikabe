@@ -12,7 +12,7 @@ nk_solver::vector3 nk_solver::expand_white_dfs(int y, int x, int H, int W, bool*
 
 	visited[field.id(y, x)] = true;
 
-	vector3 ret(1, field.at(y, x).value == nk_field::WHITE ? 1 : 0, field.at(y, x).hint > 0 ? field.at(y, x).hint : 0);
+	vector3 ret(1, field.at(y, x).value == nk_field::WHITE ? 1 : 0, field.at(y, x).hint > 0 ? field.at(y, x).hint : 0, field.at(y, x).hint > 0 ? 1 : 0);
 
 	ret += expand_white_dfs(y-1, x, H, W, visited, field);
 	ret += expand_white_dfs(y+1, x, H, W, visited, field);
@@ -27,7 +27,6 @@ int nk_solver::expand_white(nk_field &field)
 	int H = field.H, W = field.W;
 	naive_allocator al;
 
-	/*
 	bool *visited = (bool*) al.allocate(H * W * sizeof(bool));
 
 	for(int i = 0; i < H * W; i++) visited[i] = false;
@@ -39,13 +38,14 @@ int nk_solver::expand_white(nk_field &field)
 
 				//printf("%d %d: %d %d %d\n", i, j, unit.x, unit.y, unit.z);
 
-				if(unit.z > unit.x)
+				if(unit.z + (unit.w > 0 ? ((unit.w + 1) / 3) : 0) > unit.x) {
+					al.release(visited);
 					return field.t_status |= nk_field::INCONSISTENT;
+				}
 			}
 		}
 
 	al.release(visited);
-	*/
 
 	int *cstate, *uroot, *unext, *cid, idl = 0; vector3 *cvalue, *uvalue, *adj_total;
 	cstate = (int*) al.allocate(H * W * sizeof(int));

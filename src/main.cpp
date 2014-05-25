@@ -6,8 +6,8 @@
 
 int main(int argc, char* argv[])
 {
-	consecutive_test();
-	//brute_test();
+	//consecutive_test();
+	brute_test();
 	//csp_test();
 	//problem_test();
 	//graph_test();
