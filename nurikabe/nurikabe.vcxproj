@@ -264,6 +264,7 @@
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)\nurikabe_solver.obj</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)\nurikabe_solver.obj</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="..\src\core\steiner_test.cpp" />
     <ClCompile Include="..\src\frontend\pb_frontend.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\testing\brute_test.cpp" />

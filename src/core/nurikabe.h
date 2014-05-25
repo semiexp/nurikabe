@@ -131,11 +131,14 @@ public:
 
 	static int check_reachability(nk_field &field);
 
+	static int steiner_test(nk_field &field);
+
+
 	static int assumption(nk_field &field, int depth = 1);
 
 	static int solve_csp_old(nk_field &field);
 	static int solve_csp(nk_field &field);
 
-	static int brute_force(nk_field &field, int step = 0);
-
+	static int brute_force(nk_field &field, int step, nk_field* answer_store[2]);
+	static int brute_force(nk_field &field);
 };
