@@ -18,16 +18,16 @@ int nk_solver::brute_force(nk_field &field, int step, nk_field* answer_store[2])
 	if(field.status() & nk_field::INCONSISTENT) return nk_field::INCONSISTENT;
 
 	if((++trial) % 1000 == 0) {
-		printf("%d\n", trial);
-		field.debug(stdout);
-		puts("");
+		//printf("%d\n", trial);
+		//field.debug(stdout);
+		//puts("");
 	}
 
 	int H = field.H, W = field.W;
 	
 	int ty = -1, tx = -1;
 
-	if(step < 0) {
+	if(step < 11) {
 		// choose the candidate seriously
 		int maxScore = INT_MIN;
 		for(int i = 0; i < H; i++) {
@@ -58,9 +58,9 @@ int nk_solver::brute_force(nk_field &field, int step, nk_field* answer_store[2])
 					asm_white.determine_white(i, j);
 					solve(asm_white);
 
-					int prog = std::min(asm_black.progress(), asm_white.progress());
+					int prog = asm_black.progress() + asm_white.progress();
 
-					int score = std::min(i, H - 1 - i) + std::min(j, W - 1 - j) + 6 * prog;
+					int score = 10 * prog - 200 * adjHint;
 
 					if(maxScore < score) {
 						maxScore = score;
