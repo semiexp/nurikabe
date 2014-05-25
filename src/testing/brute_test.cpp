@@ -70,6 +70,19 @@ const int problem4[probH4 * probH4] = {
 	 1, -1, -1, -1,  1, -1,  6,
 };
 
+const int probH5 = 7;
+const int probW5 = 7;
+
+const int problem5[probH5 * probH5] = {
+	 9, -1, -1, -1, -1, -1,  9,
+	-1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1, -1,
+	 9, -1, -1, -1, -1, -1,  9,
+};
+
 void brute_test()
 {
 	nk_field field(probH2, probW2, (int*) problem2);

@@ -61,7 +61,7 @@ void problem_test()
 {
 	load_problem_file();
 
-	const int TRIAL_COUNT = 10;
+	const int TRIAL_COUNT = 1;
 
 	time_t start = clock();
 
