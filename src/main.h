@@ -7,5 +7,6 @@ void problem_test();
 void expand_white_test();
 void csp_test();
 void brute_test();
+void consecutive_test();
 
 void pencilbox_frontend(int argc, char** argv);

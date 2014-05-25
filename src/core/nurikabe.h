@@ -136,6 +136,6 @@ public:
 	static int solve_csp_old(nk_field &field);
 	static int solve_csp(nk_field &field);
 
-	static int brute_force(nk_field &field);
+	static int brute_force(nk_field &field, int step = 0);
 
 };
