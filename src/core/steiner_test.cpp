@@ -109,9 +109,9 @@ int nk_solver::steiner_test(nk_field &field)
 		return field.t_status |= nk_field::INCONSISTENT;
 	}
 
-	// Minimal spanning tree gives 4-approximation for the minimal number of the required black cells
+	// Minimal spanning tree gives 3-approximation (require formal proof) for the minimal number of the required black cells
 
-	int approx_steiner_cost = (cost == 0 ? 0 : ((cost + 3) / 4));
+	int approx_steiner_cost = (cost == 0 ? 0 : ((cost + 2) / 3));
 
 	if(approx_steiner_cost + blacks + hints > H * W)
 		return field.t_status |= nk_field::INCONSISTENT;
