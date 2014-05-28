@@ -8,14 +8,29 @@ int nk_solver::solve(nk_field &field)
 
 	int progress_last;
 
-	do{
+	int loop_last = 2;
+
+	for(int i = 0; i <= loop_last; ++i) {
 		progress_last = field.progress();
 
-		ret |= expand_black(field);
-		ret |= expand_white(field);
-		ret |= check_reachability(field);
+		switch (i % 3) {
+		case 0:
+			ret |= expand_black(field);
+			break;
+		case 1:
+			ret |= expand_white(field);
+			break;
+		case 2:
+			ret |= check_reachability(field);
+			break;
+		}
 
-	}while(progress_last != field.progress() && ret == nk_field::NORMAL);
+		if(field.progress() > progress_last) {
+			loop_last = i + 3;
+		}
+
+		if(ret != nk_field::NORMAL) break;
+	}
 
 	return ret;
 }

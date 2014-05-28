@@ -202,13 +202,13 @@ const int problem10[probH10 * probW10] = {
 
 void brute_test()
 {
-	nk_field field(probH10, probW10, (int*) problem10);
+	nk_field field(probH2, probW2, (int*) problem2);
 
 	time_t start = clock();
 
 	puts("Solve:");
 	nk_solver::assumption(field, 1);
-	field.debug(stdout, true);
+	field.debug(stdout);
 	fflush(stdout);
 
 	printf("%d\n", nk_solver::brute_force(field));
