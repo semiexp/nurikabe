@@ -21,7 +21,6 @@ class separated_graph
 
 	void add_edge_sub(int s, int d);
 	void dfs(int p, int root, int rtop, int& id);
-	int find_child(int p, int dis);
 
 public:
 	separated_graph(){ al = NULL; V = 0; nodes = NULL; root = NULL; sol = NULL; }
@@ -188,52 +187,10 @@ void separated_graph<Abelian, Allocator>::init()
 }
 
 template <class Abelian, class Allocator>
-int separated_graph<Abelian, Allocator>::find_child(int p, int dis)
-{
-	if(!(left[p] <= dis && dis < right[p])) return -1;
-
-	int idx=0;
-	for(edge* nx = nodes[p]; nx != NULL; nx = nx->next, ++idx){
-		if(nx->dest >= 0){
-			if(left[nx->dest] <= dis && dis < right[nx->dest]) return idx;
-		}
-	}
-
-	return -2;
-}
-
-template <class Abelian, class Allocator>
 std::vector<Abelian> separated_graph<Abelian, Allocator>::query(int p)
 {
-	int size = 1;
-	for(edge* nx=nodes[p]; nx!=NULL; nx=nx->next) ++size;
-
-	//int *root = (int*) al->allocate(size * sizeof(int));
-	//Abelian *sol = (Abelian*) al->allocate(size * sizeof(Abelian));
-
-	root[0] = 0;
-	sol[0] = value[root_pos[p]] + (-value[p]);
-	int idx=1;
-	for(edge* nx=nodes[p]; nx!=NULL; nx=nx->next, ++idx){
-		root[idx] = 1 + find_child(p, lowlink[nx->dest]);
-		if(root[idx] == -1) root[idx] = idx;
-		//printf("%d->%d %d %d\n", p, nx->dest, idx, root[idx]);
-		sol[idx] = value[nx->dest];
-	}
-
-	for(int i=size-1; i>0; --i){
-		if(root[i] > i){
-			//something is wrong
-		}else if(root[i] < i){
-			sol[root[i]] = sol[root[i]] + sol[i];
-		}
-	}
-
 	std::vector<Abelian> ret;
-	for(int i=(p == root_pos[p] ? 1 : 0);i<size;i++) if(root[i] == i) ret.push_back(sol[i]);
-
-	//al->release(root);
-	//al->release(sol);
+	query(p, ret);
 
 	return ret;
 }
@@ -244,30 +201,23 @@ void separated_graph<Abelian, Allocator>::query(int p, std::vector<Abelian> &ret
 	int size = 1;
 	for(edge* nx=nodes[p]; nx!=NULL; nx=nx->next) ++size;
 
-	//int *root = (int*) al->allocate(size * sizeof(int));
-	//Abelian *sol = (Abelian*) al->allocate(size * sizeof(Abelian));
-
-	root[0] = 0;
-	sol[0] = value[root_pos[p]] + (-value[p]);
-	int idx=1;
-	for(edge* nx=nodes[p]; nx!=NULL; nx=nx->next, ++idx){
-		root[idx] = 1 + find_child(p, lowlink[nx->dest]);
-		if(root[idx] == -1) root[idx] = idx;
-		//printf("%d->%d %d %d\n", p, nx->dest, idx, root[idx]);
-		sol[idx] = value[nx->dest];
-	}
-
-	for(int i=size-1; i>0; --i){
-		if(root[i] > i){
-			//something is wrong
-		}else if(root[i] < i){
-			sol[root[i]] = sol[root[i]] + sol[i];
-		}
-	}
-
 	ret.clear();
-	for(int i=(p == root_pos[p] ? 1 : 0);i<size;i++) if(root[i] == i) ret.push_back(sol[i]);
 
-	//al->release(root);
-	//al->release(sol);
+	if(p == root_pos[p]) {
+		for(edge* nx = nodes[p]; nx != NULL; nx = nx->next) {
+			ret.push_back(value[nx->dest]);
+		}
+	} else {
+		Abelian parent_val = value[root_pos[p]] + (-value[p]);
+
+		for(edge* nx = nodes[p]; nx != NULL; nx = nx->next) {
+			if(left[p] <= lowlink[nx->dest] && lowlink[nx->dest] < right[p]) {
+				ret.push_back(value[nx->dest]); 
+			} else {
+				parent_val = parent_val + value[nx->dest];
+			}
+		}
+
+		ret.push_back(parent_val);
+	}
 }
