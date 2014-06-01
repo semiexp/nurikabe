@@ -33,7 +33,8 @@ public:
 
 	void init();
 
-	void query(int p, std::vector<Abelian> &ret);
+	template <class Storage>
+	void query(int p, Storage &ret);
 	std::vector<Abelian> query(int p);
 
 	bool is_root(int p){ return root_pos[p] == p; }
@@ -196,7 +197,8 @@ std::vector<Abelian> separated_graph<Abelian, Allocator>::query(int p)
 }
 
 template <class Abelian, class Allocator>
-void separated_graph<Abelian, Allocator>::query(int p, std::vector<Abelian> &ret)
+template <class Storage> 
+void separated_graph<Abelian, Allocator>::query(int p, Storage &ret)
 {
 	int size = 1;
 	for(edge* nx=nodes[p]; nx!=NULL; nx=nx->next) ++size;

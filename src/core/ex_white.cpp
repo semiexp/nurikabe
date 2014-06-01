@@ -1,6 +1,7 @@
 
 #include "nurikabe.h"
 #include "graph.h"
+#include "../util/util.h"
 
 #include <queue>
 #include <algorithm>
@@ -237,7 +238,8 @@ int nk_solver::expand_white(nk_field &field)
 	//for(int i=0;i<idl+eid;i++) printf("%d: %d %d %d\n", i, vals[i].x, vals[i].y, vals[i].z);
 	G.init();
 
-	std::vector<vector3> sto;
+	mini_vector<vector3, 4> sto;
+
 	int ret = nk_field::NORMAL;
 
 	for(int i = 0; i < H; i++){

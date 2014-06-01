@@ -1,6 +1,7 @@
 
 #include "nurikabe.h"
 #include "graph.h"
+#include "../util/util.h"
 
 #include <queue>
 #include <algorithm>
@@ -37,7 +38,8 @@ int nk_solver::expand_black(nk_field &field)
 
 	naive_allocator al;
 	separated_graph<int, naive_allocator> G(iLast, iLast * 4, &al, val);
-	std::vector<int> sep;
+
+	mini_vector<int, 4> sep;
 
 	for(int i = 0; i < H; i++)
 		for(int j = 0; j < W; j++) if(id[i * W + j] >= 0){
