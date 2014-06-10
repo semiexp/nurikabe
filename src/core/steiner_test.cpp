@@ -95,10 +95,12 @@ int nk_solver::steiner_test(nk_field &field)
 
 	int unions = 1;
 	int cost = 0;
+	int max_cost = 0;
 
 	for(int i = 0; i < edges.size(); i++) {
 		if(uf_join(union_find, edges[i].second.first, edges[i].second.second)) {
 			cost += edges[i].first;
+			if(max_cost < edges[i].first) max_cost = edges[i].first;
 			++unions;
 		}
 	}
@@ -112,6 +114,7 @@ int nk_solver::steiner_test(nk_field &field)
 	// Minimal spanning tree gives 3-approximation (require formal proof) for the minimal number of the required black cells
 
 	int approx_steiner_cost = (cost == 0 ? 0 : ((cost + 2) / 3));
+	if(approx_steiner_cost < max_cost) approx_steiner_cost = max_cost;
 
 	if(approx_steiner_cost + blacks + hints > H * W)
 		return field.t_status |= nk_field::INCONSISTENT;

@@ -181,8 +181,8 @@ void separated_graph<Abelian, Allocator>::init()
 		if(mx_deg < deg) mx_deg = deg;
 	}
 
-	root = (int*) al->allocate((mx_deg+1) * sizeof(int));
-	sol = (Abelian*) al->allocate((mx_deg+1) * sizeof(Abelian));
+	//root = (int*) al->allocate((mx_deg+1) * sizeof(int));
+	//sol = (Abelian*) al->allocate((mx_deg+1) * sizeof(Abelian));
 
 	//for(int i=0;i<V;i++) printf("%d: [%d, %d) %d\n", i, left[i], right[i], lowlink[i]);
 }

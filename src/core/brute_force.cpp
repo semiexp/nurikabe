@@ -27,7 +27,11 @@ int nk_solver::brute_force(nk_field &field, int step, nk_field* answer_store[2])
 	
 	int ty = -1, tx = -1;
 
-	if(step < 11) {
+	//bool thorough_check = (field.progress() / (double)(H * W) < 0.4); //(step < 10);
+	bool thorough_check = (step < 10);
+	//if(step == 10) printf("%d\n", field.progress());
+
+	if(thorough_check) {
 		// choose the candidate seriously
 		int maxScore = INT_MIN;
 		for(int i = 0; i < H; i++) {
@@ -111,12 +115,12 @@ int nk_solver::brute_force(nk_field &field, int step, nk_field* answer_store[2])
 	nk_field asm_white(field);
 
 	asm_black.determine_black(ty, tx);
-	if(step < 11) assumption(asm_black, 1);
+	if(thorough_check) assumption(asm_black, 1);
 	else solve(asm_black);
 	//steiner_test(asm_black);
 
 	asm_white.determine_white(ty, tx);
-	if(step < 11) assumption(asm_white, 1);
+	if(thorough_check) assumption(asm_white, 1);
 	else solve(asm_white);
 	//steiner_test(asm_white);
 
