@@ -223,24 +223,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\nanocsp\src\core\Expr.hpp" />
-    <ClInclude Include="..\nanocsp\src\core\NanoCSP.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\core\Dimacs.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\core\Solver.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\core\SolverTypes.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\minisat_wrap.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\Alg.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\Alloc.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\Heap.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\IntTypes.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\Map.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\Queue.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\Sort.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\Vec.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\XAlloc.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\utils\Options.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\utils\ParseUtils.h" />
-    <ClInclude Include="..\nanocsp\src\minisat\utils\System.h" />
     <ClInclude Include="..\src\core\graph.h" />
     <ClInclude Include="..\src\core\nurikabe.h" />
     <ClInclude Include="..\src\main.h" />
@@ -248,14 +230,7 @@
     <ClInclude Include="..\src\util\util.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\nanocsp\src\core\CSPSolver.cpp" />
-    <ClCompile Include="..\nanocsp\src\core\Variables.cpp" />
-    <ClCompile Include="..\nanocsp\src\minisat\core\Solver.cc" />
-    <ClCompile Include="..\nanocsp\src\minisat\minisat_wrap.cpp" />
-    <ClCompile Include="..\nanocsp\src\minisat\utils\Options.cc" />
-    <ClCompile Include="..\nanocsp\src\minisat\utils\System.cc" />
     <ClCompile Include="..\src\core\brute_force.cpp" />
-    <ClCompile Include="..\src\core\csp_reduction.cpp" />
     <ClCompile Include="..\src\core\ex_black.cpp" />
     <ClCompile Include="..\src\core\ex_white.cpp" />
     <ClCompile Include="..\src\core\field.cpp" />
@@ -269,7 +244,6 @@
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\testing\brute_test.cpp" />
     <ClCompile Include="..\src\testing\consecutive_tester.cpp" />
-    <ClCompile Include="..\src\testing\csp_test.cpp" />
     <ClCompile Include="..\src\testing\graph_test.cpp" />
     <ClCompile Include="..\src\testing\problem_tester.cpp" />
     <ClCompile Include="..\src\util\util.cpp" />

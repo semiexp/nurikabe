@@ -28,24 +28,6 @@
     <Filter Include="ソース ファイル\util">
       <UniqueIdentifier>{8089f5b4-b665-4790-9a84-7fab86ce0e49}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\nanocsp">
-      <UniqueIdentifier>{bdb96a3c-7a91-4d45-81dc-fad2c0858a06}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\nanocsp\core">
-      <UniqueIdentifier>{daf383c4-2632-473c-a6cc-fa2c708148f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\nanocsp\minisat">
-      <UniqueIdentifier>{8a3200b0-2b4e-4a47-b728-81e5c75b7cb4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\nanocsp\minisat\core">
-      <UniqueIdentifier>{8517af55-b398-49d7-b634-e59b782d1a77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\nanocsp\minisat\mtl">
-      <UniqueIdentifier>{2cdf7a87-35b9-4351-bf50-e3347becb1b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\nanocsp\minisat\util">
-      <UniqueIdentifier>{e61d4c6d-2119-41ed-99be-a3ec18cde2b0}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -65,60 +47,6 @@
     </ClInclude>
     <ClInclude Include="..\src\util\util.h">
       <Filter>ソース ファイル\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\core\NanoCSP.h">
-      <Filter>ソース ファイル\nanocsp\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\core\Expr.hpp">
-      <Filter>ソース ファイル\nanocsp\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\core\Solver.h">
-      <Filter>ソース ファイル\nanocsp\minisat\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\core\SolverTypes.h">
-      <Filter>ソース ファイル\nanocsp\minisat\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\core\Dimacs.h">
-      <Filter>ソース ファイル\nanocsp\minisat\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\minisat_wrap.h">
-      <Filter>ソース ファイル\nanocsp\minisat</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\Queue.h">
-      <Filter>ソース ファイル\nanocsp\minisat\mtl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\Sort.h">
-      <Filter>ソース ファイル\nanocsp\minisat\mtl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\Vec.h">
-      <Filter>ソース ファイル\nanocsp\minisat\mtl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\XAlloc.h">
-      <Filter>ソース ファイル\nanocsp\minisat\mtl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\Alg.h">
-      <Filter>ソース ファイル\nanocsp\minisat\mtl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\Alloc.h">
-      <Filter>ソース ファイル\nanocsp\minisat\mtl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\Heap.h">
-      <Filter>ソース ファイル\nanocsp\minisat\mtl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\IntTypes.h">
-      <Filter>ソース ファイル\nanocsp\minisat\mtl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\mtl\Map.h">
-      <Filter>ソース ファイル\nanocsp\minisat\mtl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\utils\System.h">
-      <Filter>ソース ファイル\nanocsp\minisat\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\utils\Options.h">
-      <Filter>ソース ファイル\nanocsp\minisat\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\nanocsp\src\minisat\utils\ParseUtils.h">
-      <Filter>ソース ファイル\nanocsp\minisat\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -150,30 +78,6 @@
       <Filter>ソース ファイル\testing</Filter>
     </ClCompile>
     <ClCompile Include="..\src\testing\problem_tester.cpp">
-      <Filter>ソース ファイル\testing</Filter>
-    </ClCompile>
-    <ClCompile Include="..\nanocsp\src\core\Variables.cpp">
-      <Filter>ソース ファイル\nanocsp\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\nanocsp\src\core\CSPSolver.cpp">
-      <Filter>ソース ファイル\nanocsp\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\nanocsp\src\minisat\core\Solver.cc">
-      <Filter>ソース ファイル\nanocsp\minisat\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\nanocsp\src\minisat\minisat_wrap.cpp">
-      <Filter>ソース ファイル\nanocsp\minisat</Filter>
-    </ClCompile>
-    <ClCompile Include="..\nanocsp\src\minisat\utils\Options.cc">
-      <Filter>ソース ファイル\nanocsp\minisat\util</Filter>
-    </ClCompile>
-    <ClCompile Include="..\nanocsp\src\minisat\utils\System.cc">
-      <Filter>ソース ファイル\nanocsp\minisat\util</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\core\csp_reduction.cpp">
-      <Filter>ソース ファイル\core\solver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\testing\csp_test.cpp">
       <Filter>ソース ファイル\testing</Filter>
     </ClCompile>
     <ClCompile Include="..\src\core\brute_force.cpp">
