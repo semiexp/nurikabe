@@ -22,13 +22,14 @@ public:
 
 class union_find
 {
+protected:
 	int *hd;
 	int N;
 
 public:
 	union_find(int N) { initialize(N); }
 	union_find() { hd = NULL; }
-	~union_find() { if (!hd) delete [] hd; }
+	~union_find() { if (hd) delete [] hd; }
 
 	void initialize(int N_) {
 		N = N_;
@@ -38,14 +39,21 @@ public:
 		for (int i = 0; i < N; i++) hd[i] = -1;
 	}
 
-	int root(int p) { return (hd[p] < 0 ? p : (hd[p] = root(hd[p]))); }
+	int root(int p) {
+		//return (hd[p] < 0 ? p : (hd[p] = root(hd[p]))); 
+		while(hd[p] >= 0) p = hd[p];
+		return p;
+	}
 	bool join(int p, int q) {
 		p = root(p); q = root(q);
 
 		if(p == q) return false;
 
+		if (hd[p] > hd[q]) std::swap(p, q);
 		hd[p] += hd[q];
 		hd[q] = p;
+
+		return true;
 	}
 };
 
@@ -55,10 +63,10 @@ class valued_union_find : public union_find
 	T *data;
 
 public:
+	valued_union_find(int N) { initialize(N); }
 	valued_union_find() { hd = NULL; data = NULL; }
 	~valued_union_find() {
-		if (!hd) delete [] hd; 
-		if (!data) delete [] data;
+		if (data) delete [] data;
 	}
 
 	void initialize(int N_) {
@@ -75,9 +83,12 @@ public:
 
 		if(p == q) return false;
 
+		if (hd[p] > hd[q]) std::swap(p, q);
 		hd[p] += hd[q];
 		data[p] = data[p] + data[q];
 		hd[q] = p;
+
+		return true;
 	}
 
 	void increase(int p, const T& val)

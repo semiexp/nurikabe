@@ -28,6 +28,7 @@ int nk_solver::expand_white(nk_field &field)
 	int H = field.H, W = field.W;
 	naive_allocator al;
 
+#ifndef USE_UNION_FIND
 	bool *visited = (bool*) al.allocate(H * W * sizeof(bool));
 
 	for(int i = 0; i < H * W; i++) visited[i] = false;
@@ -47,6 +48,45 @@ int nk_solver::expand_white(nk_field &field)
 		}
 
 	al.release(visited);
+#else
+	valued_union_find <vector3>  uf(H * W);
+
+	for (int i = 0; i < H; i++) {
+		for (int j = 0; j < W; j++) {
+			if (field.at(i, j).value == nk_field::BLACK) continue;
+
+			vector3 cell_value(
+				1,
+				field.at(i, j).value == nk_field::WHITE ? 1 : 0,
+				field.at(i, j).hint > 0 ? field.at(i, j).hint : 0,
+				field.at(i, j).hint > 0 ? 1 : 0
+				);
+
+			uf.increase(field.id(i, j), cell_value);
+
+			if (i < H - 1 && field.at(i+1, j).value != nk_field::BLACK) {
+				uf.join(field.id(i, j), field.id(i+1, j));
+			}
+			if (j < W - 1 && field.at(i, j+1).value != nk_field::BLACK) {
+				uf.join(field.id(i, j), field.id(i, j+1));
+			}
+		}
+	}
+
+	for (int i = 0; i < H; i++) {
+		for (int j = 0; j < W; j++) {
+			if (field.at(i, j).value == nk_field::BLACK) continue;
+
+			int id = field.id(i, j);
+			if (uf.root(id) != id) continue;
+
+			vector3 unit = uf.get_union_value(id);
+			if(unit.z + (unit.w > 0 ? ((unit.w + 1) / 3) : 0) > unit.x) {
+				return field.t_status |= nk_field::INCONSISTENT;
+			}
+		}
+	}
+#endif
 
 	int *cstate, *uroot, *unext, *cid, idl = 0; vector3 *cvalue, *uvalue, *adj_total;
 	cstate = (int*) al.allocate(H * W * sizeof(int));
