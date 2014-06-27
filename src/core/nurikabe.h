@@ -3,6 +3,7 @@ class nk_solver;
 
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 class nk_field
 {

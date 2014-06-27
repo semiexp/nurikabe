@@ -88,10 +88,9 @@ int nk_solver::expand_white(nk_field &field)
 	}
 #endif
 
-	int *cstate, *uroot, *unext, *cid, idl = 0; vector3 *cvalue, *uvalue, *adj_total;
+	int *cstate, *uroot, *cid, idl = 0; vector3 *cvalue, *uvalue, *adj_total;
 	cstate = (int*) al.allocate(H * W * sizeof(int));
 	uroot = (int*) al.allocate(H * W * sizeof(int));
-	unext = (int*) al.allocate(H * W * sizeof(int));
 	cid = (int*) al.allocate(H * W * sizeof(int));
 	cvalue = (vector3*) al.allocate(H * W * sizeof(vector3));
 	uvalue = (vector3*) al.allocate(H * W * sizeof(vector3));
@@ -127,7 +126,6 @@ int nk_solver::expand_white(nk_field &field)
 			}
 
 			uroot[p] = -1;
-			unext[p] = p;
 		}
 
 	std::queue<int> Q;
@@ -156,7 +154,6 @@ int nk_solver::expand_white(nk_field &field)
 
 					uroot[p] = rt;
 					uvalue[rt] = uvalue[rt] + cvalue[p];
-					std::swap(unext[rt], unext[p]);
 
 					Q.push(p);
 				}
@@ -242,7 +239,7 @@ int nk_solver::expand_white(nk_field &field)
 		}
 	}
 
-	std::vector<std::pair<std::pair<int, int>, int> >::iterator iter = adjs.begin(), iter2, end = adjs.end();
+	auto iter = adjs.begin(), iter2 = adjs.begin(), end = adjs.end();
 	vector3 *vals = (vector3*) al.allocate((idl + eid) * sizeof(vector3));
 
 	for(int i = 0; i < idl + eid; i++) vals[i] = vector3(0, 0, 0);
@@ -328,7 +325,6 @@ int nk_solver::expand_white(nk_field &field)
 release:
 	al.release(cstate);
 	al.release(uroot);
-	al.release(unext);
 	al.release(cid);
 	al.release(cvalue);
 	al.release(uvalue);
