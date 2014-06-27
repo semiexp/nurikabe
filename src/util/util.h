@@ -63,8 +63,8 @@ class valued_union_find : public union_find
 	T *data;
 
 public:
-	valued_union_find(int N) { initialize(N); }
-	valued_union_find() { hd = NULL; data = NULL; }
+	valued_union_find(int N) : union_find(N) { data = new T[N]; }
+	valued_union_find() : union_find() { data = NULL; }
 	~valued_union_find() {
 		if (data) delete [] data;
 	}
