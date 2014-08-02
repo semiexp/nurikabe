@@ -234,6 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\core\brute_force.cpp" />
+    <ClCompile Include="..\src\core\dp_solver.cpp" />
     <ClCompile Include="..\src\core\ex_black.cpp" />
     <ClCompile Include="..\src\core\ex_white.cpp" />
     <ClCompile Include="..\src\core\field.cpp" />

@@ -92,6 +92,9 @@
     <ClCompile Include="..\src\core\steiner_test.cpp">
       <Filter>ソース ファイル\core\solver</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\core\dp_solver.cpp">
+      <Filter>ソース ファイル\core\solver</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

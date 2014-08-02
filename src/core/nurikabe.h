@@ -142,4 +142,6 @@ public:
 
 	static int brute_force(nk_field &field, int step, nk_field* answer_store[2]);
 	static int brute_force(nk_field &field);
+
+	static int solve_dp(nk_field &field);
 };

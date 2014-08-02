@@ -199,6 +199,25 @@ const int problem10[probH10 * probW10] = {
 	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
 };
 
+const int probH11 = 4;
+const int probW11 = 4;
+
+const int problem11[probH11 * probW11] = {
+	-1, -1, -1, -1,
+	-1,  3, -1, -1,
+	-1, -1, -1, -1,
+	-1, -1, -1,  1,
+};
+
+const int probH12 = 3;
+const int probW12 = 3;
+
+const int problem12[probH12 * probW12] = {
+	 3, -1, -1,
+	-1, -1, -1,
+	-1, -1,  1
+};
+
 
 void brute_test()
 {
@@ -217,4 +236,12 @@ void brute_test()
 	time_t end = clock();
 
 	printf("Cost: %.3f[s]\n", (end - start) / (double)CLOCKS_PER_SEC);
+}
+
+void dp_test()
+{
+	//nk_field field(probH11, probW11, (int*)problem11);
+	nk_field field(probH10, probW10, (int*)problem10);
+
+	nk_solver::solve_dp(field);
 }
